@@ -1,0 +1,20 @@
+.AppComponent {
+  &-poopFloat {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: slidein 3s;
+    font-size: 60px;
+  }
+}
+
+@keyframes slidein {
+  from {
+    bottom: 100%;
+  }
+
+  to {
+    bottom: -100%;
+  }
+}

@@ -1,0 +1,55 @@
+@import 'src/assets/styles/themes.scss';
+
+.LogPoopForm {
+  &-container {
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  &-field {
+    display: block;
+
+    & + & {
+      margin-top: 10px;
+    }
+  }
+
+  &-checkbox {
+    margin-bottom: 30px;
+  }
+
+  &-rating {
+    display: block;
+  }
+
+  &-ratingLabel {
+    display: block;
+    font-size: 20px;
+  }
+
+  &-submit {
+    @include default-cta;
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  &-poopFloat {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: slidein 3s;
+    font-size: 60px;
+  }
+}
+
+@keyframes slidein {
+  from {
+    bottom: 100%;
+  }
+
+  to {
+    bottom: -100%;
+  }
+}

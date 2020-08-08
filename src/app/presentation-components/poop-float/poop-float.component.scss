@@ -1,0 +1,16 @@
+:host {
+  position: absolute;
+  top: 0;
+  transform: translate(-50%, -100%);
+  transition: 500ms ease-in-out;
+
+  @keyframes slidein {
+    100% {
+      top: 140%;
+    }
+  }
+}
+
+.PoopFloat-container {
+  font-size: 60px;
+}

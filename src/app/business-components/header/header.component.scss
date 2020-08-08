@@ -1,0 +1,16 @@
+.HeaderComponent {
+  &-container {
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(black, 0.1);
+    background-color: white;
+  }
+
+  &-title {
+    font-size: 36px;
+    text-align: center;
+  }
+
+  &-emoji {
+    font-size: 40px;
+  }
+}

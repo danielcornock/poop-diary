@@ -1,0 +1,66 @@
+<div class="LogPoopForm-container">
+  <form [formGroup]="poopForm" (ngSubmit)="submitForm()">
+    <mat-checkbox
+      [formControl]="poopForm.controls.isToday"
+      class="LogPoopForm-field LogPoopForm-checkbox"
+      >Did this poop happen just now?</mat-checkbox
+    >
+
+    <mat-form-field
+      appearance="fill"
+      class="LogPoopForm-field"
+      *ngIf="!poopForm.controls.isToday.value"
+    >
+      <mat-label>Choose a date and time</mat-label>
+
+      <input
+        matInput
+        type="datetime-local"
+        [formControl]="poopForm.controls.dateTime"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="LogPoopForm-field">
+      <mat-label>Add tags to your poop</mat-label>
+      <mat-chip-list #chipList aria-label="Select tags">
+        <mat-chip
+          *ngFor="let tag of tags"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(tag)"
+        >
+          {{ tag }}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="Add new"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)"
+        />
+      </mat-chip-list>
+    </mat-form-field>
+
+    <div class="LogPoopForm-field">
+      <label class="LogPoopForm-ratingLabel">Rate your poop!</label>
+      <mat-slider
+        class="LogPoopForm-rating"
+        [max]="5"
+        [min]="0"
+        [step]="1"
+        [thumbLabel]="true"
+        [formControl]="poopForm.controls.rating"
+      >
+      </mat-slider>
+    </div>
+
+    <input
+      type="submit"
+      value="Save your poop! 💩"
+      class="LogPoopForm-submit"
+    />
+  </form>
+</div>
+
+<span *ngIf="isSaving" class="LogPoopForm-poopFloat">💩</span>

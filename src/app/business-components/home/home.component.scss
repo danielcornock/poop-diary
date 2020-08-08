@@ -1,0 +1,11 @@
+@import 'src/assets/styles/themes.scss';
+
+.HomeComponent {
+  &-container {
+    padding: 20px;
+  }
+
+  &-ctaButton {
+    @include default-cta;
+  }
+}
