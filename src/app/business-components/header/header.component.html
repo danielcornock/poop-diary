@@ -1,4 +1,7 @@
 <div class="HeaderComponent-container">
+  <a routerLink="/home" class="HeaderComponent-backButton" *ngIf="isNotHome">
+    <mat-icon class="HeaderComponent-backButtonIcon">arrow_back</mat-icon>
+  </a>
   <h1 class="HeaderComponent-title">
     <span class="HeaderComponent-emoji">💩</span> Diary
   </h1>

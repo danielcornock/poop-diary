@@ -6,12 +6,17 @@ import { LogPoopFormComponent } from './business-components/log-poop-form/log-po
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent
   },
   {
     path: 'createLog',
     component: LogPoopFormComponent
+  },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'home'
   }
 ];
 

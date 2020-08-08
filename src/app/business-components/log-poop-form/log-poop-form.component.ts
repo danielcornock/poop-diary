@@ -2,6 +2,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-poop-form',
@@ -19,13 +20,20 @@ export class LogPoopFormComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   tags: Array<string> = ['shower needed'];
 
-  constructor(private readonly _formBuilder: FormBuilder) {}
+  constructor(
+    private readonly _formBuilder: FormBuilder,
+    private readonly _router: Router
+  ) {}
 
   ngOnInit(): void {
     this.poopForm = this._formBuilder.group({
-      isToday: new FormControl(),
-      dateTime: new FormControl('', this._dateTimeValidator.bind(this)),
-      time: new FormControl(new Date(Date.now()).toTimeString()),
+      dateTimeGroup: this._formBuilder.group(
+        {
+          isToday: new FormControl(),
+          dateTime: new FormControl('')
+        },
+        { validators: this._dateTimeValidator.bind(this) }
+      ),
       rating: new FormControl(0)
     });
   }
@@ -44,10 +52,27 @@ export class LogPoopFormComponent implements OnInit {
   }
 
   public submitForm(): void {
+    console.log(this.poopForm);
+
+    if (this.poopForm.invalid) {
+      return;
+    }
+
     this.isSaving = true;
     setTimeout(() => {
       this.isSaving = false;
-    }, 3000);
+      this._router.navigateByUrl('/home');
+    }, 1500);
+  }
+
+  public isDateTimeInvalid(): boolean {
+    console.log(this.poopForm.controls.dateTimeGroup.status === 'INVALID');
+    console.log(this.poopForm.controls.dateTimeGroup);
+
+    return (
+      this.poopForm.controls.dateTimeGroup.status === 'INVALID' &&
+      this.poopForm.controls.dateTimeGroup.get('dateTime').touched
+    );
   }
 
   public remove(tag: string): void {
@@ -58,8 +83,14 @@ export class LogPoopFormComponent implements OnInit {
     }
   }
 
-  private _dateTimeValidator(control: FormControl): ValidationErrors | null {
-    if (this.poopForm?.controls.isToday.value || control.value) {
+  public displayDateField(): boolean {
+    return !this.poopForm.controls.dateTimeGroup.get('isToday').value;
+  }
+
+  private _dateTimeValidator(group: FormGroup): ValidationErrors | null {
+    console.log(group);
+
+    if (group.controls.isToday.value || group.controls.dateTime.value) {
       return null;
     } else {
       return {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  public isNotHome: boolean;
 
-  constructor() { }
+  constructor(private readonly _router: Router) {}
 
   ngOnInit(): void {
+    this._router.events.subscribe((data: RouterEvent) => {
+      if (data.url) {
+        this.isNotHome = data.url !== '/home';
+      }
+    });
   }
-
 }

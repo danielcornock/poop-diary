@@ -1,8 +1,9 @@
 .HeaderComponent {
   &-container {
-    padding: 10px;
+    padding: 10px 20px;
     box-shadow: 0 2px 6px rgba(black, 0.1);
     background-color: white;
+    position: relative;
   }
 
   &-title {
@@ -12,5 +13,20 @@
 
   &-emoji {
     font-size: 40px;
+  }
+
+  &-backButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &-backButtonIcon {
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    display: block;
   }
 }

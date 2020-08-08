@@ -32,6 +32,13 @@
     display: block;
     width: 100%;
     margin-top: 30px;
+    cursor: pointer;
+  }
+
+  &-groupErrorMessage {
+    margin-top: -15px;
+    font-size: 12px;
+    text-align: left;
   }
 
   &-poopFloat {
