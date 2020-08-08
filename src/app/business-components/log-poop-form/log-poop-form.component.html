@@ -18,6 +18,9 @@
         type="datetime-local"
         [formControl]="poopForm.controls.dateTime"
       />
+      <mat-error *ngIf="poopForm.controls.dateTime.invalid"
+        >You must enter a valid date and time for your poop.</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="LogPoopForm-field">

@@ -1,6 +1,6 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
@@ -24,7 +24,7 @@ export class LogPoopFormComponent implements OnInit {
   ngOnInit(): void {
     this.poopForm = this._formBuilder.group({
       isToday: new FormControl(),
-      dateTime: new FormControl(),
+      dateTime: new FormControl('', this._dateTimeValidator.bind(this)),
       time: new FormControl(new Date(Date.now()).toTimeString()),
       rating: new FormControl(0)
     });
@@ -48,7 +48,6 @@ export class LogPoopFormComponent implements OnInit {
     setTimeout(() => {
       this.isSaving = false;
     }, 3000);
-    console.log(this.poopForm.controls);
   }
 
   public remove(tag: string): void {
@@ -56,6 +55,16 @@ export class LogPoopFormComponent implements OnInit {
 
     if (index >= 0) {
       this.tags.splice(index, 1);
+    }
+  }
+
+  private _dateTimeValidator(control: FormControl): ValidationErrors | null {
+    if (this.poopForm?.controls.isToday.value || control.value) {
+      return null;
+    } else {
+      return {
+        required: true
+      };
     }
   }
 }
