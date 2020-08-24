@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Router } from '@angular/router';
+import { MockApiService } from 'src/app/services/mock-api-service/mock-api.service';
 
 @Component({
   selector: 'app-log-poop-form',
@@ -16,13 +17,37 @@ export class LogPoopFormComponent implements OnInit {
   public removable = true;
   public addOnBlur = true;
   public isSaving = false;
+  public daysOfWeek = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday'
+  ];
+  public monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  tags: Array<string> = ['shower needed'];
+  tags: Array<string> = [];
 
   constructor(
     private readonly _formBuilder: FormBuilder,
-    private readonly _router: Router
+    private readonly _router: Router,
+    private readonly _mockApiService: MockApiService
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +83,26 @@ export class LogPoopFormComponent implements OnInit {
       return;
     }
 
+    let date: string;
+    let time: string;
+
+    const dateValue = new Date(
+      this.poopForm.controls.dateTimeGroup.get('dateTime').value ||
+        new Date(Date.now())
+    );
+
+    const dateTime = this._extractDateAndTime(dateValue);
+
+    date = dateTime.date;
+    time = dateTime.time;
+
+    this._mockApiService.addPoop({
+      date,
+      time,
+      rating: this.poopForm.controls.rating.value,
+      tags: this.tags
+    });
+
     this.isSaving = true;
     setTimeout(() => {
       this.isSaving = false;
@@ -66,9 +111,6 @@ export class LogPoopFormComponent implements OnInit {
   }
 
   public isDateTimeInvalid(): boolean {
-    console.log(this.poopForm.controls.dateTimeGroup.status === 'INVALID');
-    console.log(this.poopForm.controls.dateTimeGroup);
-
     return (
       this.poopForm.controls.dateTimeGroup.status === 'INVALID' &&
       this.poopForm.controls.dateTimeGroup.get('dateTime').touched
@@ -87,9 +129,18 @@ export class LogPoopFormComponent implements OnInit {
     return !this.poopForm.controls.dateTimeGroup.get('isToday').value;
   }
 
-  private _dateTimeValidator(group: FormGroup): ValidationErrors | null {
-    console.log(group);
+  private _extractDateAndTime(date: Date): { date: string; time: string } {
+    return {
+      date: `${this.daysOfWeek[date.getDay()]} ${date.getDate()} ${
+        this.monthNames[date.getMonth()]
+      }`,
+      time: `${date.getHours()}:${
+        date.getMinutes() < 10 ? '0' : ''
+      }${date.getUTCMinutes()}`
+    };
+  }
 
+  private _dateTimeValidator(group: FormGroup): ValidationErrors | null {
     if (group.controls.isToday.value || group.controls.dateTime.value) {
       return null;
     } else {

@@ -1,0 +1,12 @@
+<div class="PoopList-container">
+  <h2 class="PoopList-title">Poop Log</h2>
+
+  <div class="PoopList-item" *ngFor="let poop of poopListPoops">
+    <h3 class="PoopList-date">{{ poop.date }} - {{ poop.time }}</h3>
+    <p class="PoopList-rating">{{ poop.rating }}/5</p>
+    <div class="PoopList-tags" *ngIf="poop.tags.length">
+      <h4 class="PoopList-tagsLabel">Tags</h4>
+      <span class="PoopList-tag" *ngFor="let tag of poop.tags">{{ tag }}</span>
+    </div>
+  </div>
+</div>

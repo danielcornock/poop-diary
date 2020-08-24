@@ -1,0 +1,58 @@
+$container-spacing: 15px;
+
+.PoopList {
+  &-container {
+    border-top: 2px solid #eee;
+    padding: 20px 0;
+    margin-top: 20px;
+  }
+
+  &-title {
+    margin-bottom: 15px;
+  }
+
+  &-rating {
+    position: absolute;
+    top: $container-spacing;
+    right: $container-spacing;
+    padding: 5px;
+    background-color: #eee0ff;
+    color: #7f17ff;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+
+  &-item {
+    position: relative;
+    background-color: #f9f9f9;
+    padding: $container-spacing;
+    border-radius: 5px;
+
+    & + & {
+      margin-top: 15px;
+    }
+  }
+
+  &-tags {
+    margin-top: 10px;
+  }
+
+  &-tagsLabel {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+
+  &-tag {
+    display: inline-block;
+    background-color: #eee;
+    color: #444;
+    border-radius: 5px;
+    padding: 5px 10px;
+
+    & + & {
+      margin-left: 10px;
+    }
+  }
+}

@@ -17,6 +17,7 @@ import { HeaderComponent } from './business-components/header/header.component';
 import { HomeComponent } from './business-components/home/home.component';
 import { LogPoopFormComponent } from './business-components/log-poop-form/log-poop-form.component';
 import { PoopFloatComponent } from './presentation-components/poop-float/poop-float.component';
+import { PoopListComponent } from './presentation-components/poop-list/poop-list.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PoopFloatComponent } from './presentation-components/poop-float/poop-fl
     HomeComponent,
     HeaderComponent,
     LogPoopFormComponent,
-    PoopFloatComponent
+    PoopFloatComponent,
+    PoopListComponent
   ],
   imports: [
     BrowserModule,
