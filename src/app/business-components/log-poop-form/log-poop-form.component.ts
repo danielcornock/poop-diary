@@ -77,8 +77,6 @@ export class LogPoopFormComponent implements OnInit {
   }
 
   public submitForm(): void {
-    console.log(this.poopForm);
-
     if (this.poopForm.invalid) {
       return;
     }

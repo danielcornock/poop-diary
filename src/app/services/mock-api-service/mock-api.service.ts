@@ -6,6 +6,7 @@ import { IPoopItem } from 'src/app/interfaces/poop-item.interface';
 })
 export class MockApiService {
   private _poops: Array<IPoopItem>;
+
   constructor() {
     this._poops = [];
   }
@@ -17,7 +18,7 @@ export class MockApiService {
 
   public getPoops(): Array<IPoopItem> {
     if (!this._poops.length) {
-      this._poops = JSON.parse(localStorage.getItem('poops'));
+      this._poops = JSON.parse(localStorage.getItem('poops')) || [];
     }
 
     return this._poops;
